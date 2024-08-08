@@ -6,6 +6,7 @@ const categoryController = require('../controllers/categoryController');
 const orderController = require('../controllers/orderController');
 const orderItemController = require('../controllers/orderItemController');
 const productController = require('../controllers/productController');
+const authController = require('../controllers/authController');
 
 /**
  * @swagger
@@ -13,6 +14,67 @@ const productController = require('../controllers/productController');
  *   name: e-commerce API
  *   description: Documentação de referência da API de demonstração para o trabalho final da geração Tech
  */
+
+// Auth routes
+/**
+ * @swagger
+ * /register:
+ *   post:
+ *     summary: Criar um novo usuário
+ *     tags: [Autenticação]
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             $ref: '#/components/schemas/User'
+ *     responses:
+ *       201:
+ *         description: Usuário criado
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/User'
+ *       500:
+ *         description: Erro no servidor
+ */
+router.post('/register', authController.register);
+/**
+ * @swagger
+ * /login:
+ *   post:
+ *     summary: Realiza o login do usuário
+ *     tags: [Autenticação]
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               email:
+ *                 type: string
+ *                 description: Email do usuário
+ *                 example: "usuario@example.com"
+ *               password:
+ *                 type: string
+ *                 description: Senha do usuário
+ *                 example: "senha123"
+ *     responses:
+ *       200:
+ *         description: Login bem-sucedido
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 token:
+ *                   type: string
+ *                   description: Token JWT para autenticação
+ *       401:
+ *         description: Credenciais inválidas
+ */
+router.post('/login', authController.login);
 
 // User routes
 /**
@@ -56,29 +118,6 @@ router.get('/users', userController.getAllUsers);
  *         description: Usuário não encontrado
  */
 router.get('/users/:id', userController.getUserById);
-/**
- * @swagger
- * /users:
- *   post:
- *     summary: Criar um novo usuário
- *     tags: [Users]
- *     requestBody:
- *       required: true
- *       content:
- *         application/json:
- *           schema:
- *             $ref: '#/components/schemas/User'
- *     responses:
- *       201:
- *         description: Usuário criado
- *         content:
- *           application/json:
- *             schema:
- *               $ref: '#/components/schemas/User'
- *       500:
- *         description: Erro no servidor
- */
-router.post('/users', userController.createUser);
 /**
  * @swagger
  * /users/{id}:

@@ -21,7 +21,7 @@ const options = {
                     properties: {
                         full_name: {
                             type: 'string',
-                            description: 'Primeiro Nome do usuário',
+                            description: 'Nome do usuário',
                         },
                         email: {
                             type: 'string',

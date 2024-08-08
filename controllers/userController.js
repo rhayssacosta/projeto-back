@@ -25,16 +25,6 @@ const getUserById = async (req, res) => {
   }
 };
 
-// Create a new user
-const createUser = async (req, res) => {
-  try {
-    const user = await User.create(req.body);
-    res.status(201).json(user);
-  } catch (error) {
-    res.status(500).json({ error: error.message });
-  }
-};
-
 // Update a user by ID
 const updateUser = async (req, res) => {
   try {
@@ -73,7 +63,6 @@ const deleteUser = async (req, res) => {
 module.exports = {
   getAllUsers,
   getUserById,
-  createUser,
   updateUser,
   deleteUser
 };
